@@ -3,6 +3,9 @@ from .base import BaseYarnAPI
 from .constants import ApplicationState
 from .errors import IllegalArgumentError
 from .hadoop_conf import get_nodemanager_endpoint
+from .base import getLogger
+
+log = getLogger()
 
 LEGAL_APPLICATION_STATES = {s for s, _ in ApplicationState}
 
@@ -35,7 +38,6 @@ class NodeManager(BaseYarnAPI):
     """
     def __init__(self, service_endpoint=None, timeout=30, auth=None, verify=True):
         if not service_endpoint:
-            self.logger.debug('Get configuration from hadoop conf dir')
             service_endpoint = get_nodemanager_endpoint()
 
         super(NodeManager, self).__init__(service_endpoint, timeout, auth, verify)

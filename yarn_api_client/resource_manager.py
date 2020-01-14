@@ -5,7 +5,9 @@ from .constants import YarnApplicationState, FinalApplicationStatus
 from .errors import IllegalArgumentError
 from .hadoop_conf import get_resource_manager_endpoint, check_is_active_rm, CONF_DIR, _get_maximum_container_memory
 from collections import deque
+from .base import getLogger
 
+log = getLogger()
 LEGAL_STATES = {s for s, _ in YarnApplicationState}
 LEGAL_FINAL_STATUSES = {s for s, _ in FinalApplicationStatus}
 
@@ -73,7 +75,6 @@ class ResourceManager(BaseYarnAPI):
     def __init__(self, service_endpoints=None, timeout=30, auth=None, verify=True):
         active_service_endpoint = None
         if not service_endpoints:
-            self.logger.debug('Get configuration from hadoop conf dir: {conf_dir}'.format(conf_dir=CONF_DIR))
             active_service_endpoint = get_resource_manager_endpoint(timeout, auth, verify)
         else:
             for endpoint in service_endpoints:

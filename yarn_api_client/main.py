@@ -8,9 +8,9 @@ import sys
 from .constants import (YarnApplicationState, FinalApplicationStatus,
                         ApplicationState, JobStateInternal)
 from . import ResourceManager, NodeManager, HistoryServer, ApplicationMaster
+from .base import getLogger
 
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-
+log = getLogger()
 
 def get_parser():
     parser = argparse.ArgumentParser(
